@@ -1,3 +1,12 @@
+﻿# Archivos de Visual Studio
+.vs/
+*.suo
+*.user
+*.userprefs
+*.csproj
+*.sln
+
+# Archivos generados de Unity
 [Ll]ibrary/
 [Tt]emp/
 [Oo]bj/
@@ -6,7 +15,12 @@
 [Ll]ogs/
 MemoryCaptures/
 
-.vscode/
-*.csproj
-*.sln
+# Unity meta files opcionales (⚠️ ver nota abajo)
 *.unitypackage
+
+# VSCode
+.vscode/
+
+# Otros
+.DS_Store
+Thumbs.db
