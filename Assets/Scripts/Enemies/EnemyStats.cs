@@ -5,6 +5,10 @@ public class EnemyStats : MonoBehaviour
     public int maxHealth = 20;
     private int currentHealth;
 
+    [Header("Curación")]
+    public GameObject healingButtonPrefab;
+    [Range(0f, 1f)] public float dropChance = 0.1f; // 10%
+
     void Start()
     {
         currentHealth = maxHealth;
@@ -22,7 +26,16 @@ public class EnemyStats : MonoBehaviour
 
     void Die()
     {
+        TryDropHealing();
         Destroy(gameObject);
-        // Aquí puedes agregar efectos de muerte más adelante
+    }
+
+    void TryDropHealing()
+    {
+        float chance = Random.Range(0f, 1f);
+        if (chance <= dropChance)
+        {
+            Instantiate(healingButtonPrefab, transform.position, Quaternion.identity);
+        }
     }
 }
