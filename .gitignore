@@ -24,3 +24,26 @@ MemoryCaptures/
 # Otros
 .DS_Store
 Thumbs.db
+
+# Archivos de Unity que pueden colarse si usas colaboración
+[Uu]serSettings/
+[Ww]ebglTemplates/
+[Mm]emoryCaptures/
+[Uu]nityPackageManager/
+
+# Archivos de búsqueda y navegación
+*.pidb
+*.booproj
+*.sln*
+*.csproj*
+
+# Meta de imágenes y assets importados (solo si tú los decides excluir)
+# *.png.meta
+# *.jpg.meta
+
+# Archivos temporales de Unity
+*.tmp
+*.bak
+
+# Archivos de escena de prueba (si no quieres compartir pruebas)
+# Assets/Scenes/SampleScene.unity
