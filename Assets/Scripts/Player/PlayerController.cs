@@ -18,14 +18,18 @@ public class PlayerController : MonoBehaviour
     private Vector2 lastLookDirection = Vector2.right;
     private SpriteRenderer spriteRenderer;
 
+    private PlayerStats playerStats;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        playerStats = GetComponent<PlayerStats>();
     }
 
     void Update()
     {
+        if(playerStats.isDead) return; // Prevent player movement if dead
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
         movement = movement.normalized;
@@ -43,6 +47,8 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
+        if(playerStats.isDead) return; // Prevent player movement if dead
+
         rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
     }
 
