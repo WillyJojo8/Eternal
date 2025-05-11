@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b02e0b0ca2a8b341aca3fdb3391e0f4, type: 3}
   m_Name: MoreHealth
   m_EditorClassIdentifier: 
-  perkName: 
+  perkName: MoreHealth
   icon: {fileID: 0}
-  description: 
+  description: "Aumenta la vida m\xE1xima"
