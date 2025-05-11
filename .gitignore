@@ -1,49 +1,60 @@
-﻿# Archivos de Visual Studio
+﻿# ==========================
+# Visual Studio
+# ==========================
 .vs/
 *.suo
 *.user
 *.userprefs
 *.csproj
 *.sln
+*.sln*
 
-# Archivos generados de Unity
+# ==========================
+# Unity
+# ==========================
 [Ll]ibrary/
 [Tt]emp/
 [Oo]bj/
-[Bb]uild/
-[Bb]uilds/
+[Bb]uild*/
 [Ll]ogs/
-MemoryCaptures/
+[Mm]emoryCaptures/
+[Uu]serSettings/
+[Ww]ebglTemplates/
+[Uu]nityPackageManager/
+*.pidb
+*.booproj
+*.bak
+*.tmp
 
-# Unity meta files opcionales (⚠️ ver nota abajo)
-*.unitypackage
+# ==========================
+# Editor / Layouts
+# ==========================
+UserSettings/
+*.dwlt
 
+# ==========================
 # VSCode
+# ==========================
 .vscode/
 
-# Otros
+# ==========================
+# Sistema operativo
+# ==========================
 .DS_Store
 Thumbs.db
 
-# Archivos de Unity que pueden colarse si usas colaboración
-[Uu]serSettings/
-[Ww]ebglTemplates/
-[Mm]emoryCaptures/
-[Uu]nityPackageManager/
+# ==========================
+# Unity paquetes opcionales
+# ==========================
+*.unitypackage
 
-# Archivos de búsqueda y navegación
-*.pidb
-*.booproj
-*.sln*
-*.csproj*
-
-# Meta de imágenes y assets importados (solo si tú los decides excluir)
+# ==========================
+# Meta opcional (solo si decides ignorarlas)
+# ==========================
 # *.png.meta
 # *.jpg.meta
 
-# Archivos temporales de Unity
-*.tmp
-*.bak
-
-# Archivos de escena de prueba (si no quieres compartir pruebas)
+# ==========================
+# Escenas de prueba (opcional)
+# ==========================
 # Assets/Scenes/SampleScene.unity
