@@ -26,10 +26,23 @@ public class PlayerStats : MonoBehaviour
 
     void Start()
     {
+        GameManager.Instance.ResetGameState();
         isDead = false;
         currentHealth = maxHealth;
         healthBar.SetMaxHealth(maxHealth);
+
+        if (PerkManager.Instance != null && PerkSelectionUI.Instance != null)
+        {
+            var perks = PerkManager.Instance.GetRandomPerks(2);
+            PerkSelectionUI.Instance.Show(perks);
+            Debug.Log("Mostrando perks iniciales.");
+        }
+        else
+        {
+            Debug.LogWarning("PerkManager o PerkSelectionUI no están disponibles.");
+        }
     }
+
 
     public void TakeDamage(int amount)
     {
@@ -56,6 +69,12 @@ public class PlayerStats : MonoBehaviour
     void Die()
     {
         isDead = true;
+
+        foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy"))
+        {
+            Destroy(enemy);
+        }
+
         Debug.Log("Player died");
 
         // 1) Detener cualquier velocidad residual
@@ -78,10 +97,6 @@ public class PlayerStats : MonoBehaviour
         Collider2D col = GetComponent<Collider2D>();
         if (col != null)
             col.enabled = false;
-
-        // Aquí podrías invocar la lógica de respawn, animación de muerte, etc.
-        var perks = PerkManager.Instance.GetRandomPerks(2);
-        PerkSelectionUI.Instance.Show(perks);
     }
 
      public void Respawn()

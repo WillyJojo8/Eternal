@@ -64,13 +64,14 @@ public class PerkSelectionUI : MonoBehaviour
 
     void OnOptionSelected(int index)
     {
-        // Aplica el perk
         var chosen = currentPerks[index];
-
         chosen.Apply(PlayerStats.Instance.gameObject);
 
         panel.SetActive(false);
 
+        GameManager.Instance.ConfirmPerkSelected();
+
         PlayerStats.Instance.Respawn();
     }
+
 }

@@ -5,7 +5,7 @@ public class EnemyStats : MonoBehaviour
     public int maxHealth = 20;
     private int currentHealth;
 
-    [Header("Curaci�n")]
+    [Header("Curación")]
     public GameObject healingButtonPrefab;
     [Range(0f, 1f)] public float dropChance = 0.1f; // 10%
 
@@ -26,11 +26,10 @@ public class EnemyStats : MonoBehaviour
 
     void Die()
     {
-        var ui = FindObjectOfType<EnemyCount_UI>();
-        if (ui != null){
-            
-            ui.IncrementCount();
-
+        // Añadir al contador del GameManager
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.AddEnemyKill();
         }
 
         TryDropHealing();

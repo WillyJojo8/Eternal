@@ -11,7 +11,9 @@ public class EnemySpawner : MonoBehaviour
 
     void Update()
     {
-        if (player == null) return;
+        if (!GameManager.Instance.HasSelectedPerk) return;
+
+        if (player == null || PlayerStats.Instance == null || PlayerStats.Instance.isDead) return;
 
         timer += Time.deltaTime;
         if (timer >= spawnInterval)
