@@ -9,6 +9,9 @@ public class EnemyStats : MonoBehaviour
     public GameObject healingButtonPrefab;
     [Range(0f, 1f)] public float dropChance = 0.1f; // 10%
 
+    [Header("Progreso")]
+    public int buttonsGiven = 1; // Puntos de habilidad que da este enemigo
+
     void Start()
     {
         currentHealth = maxHealth;
@@ -26,10 +29,11 @@ public class EnemyStats : MonoBehaviour
 
     void Die()
     {
-        // Añadir al contador del GameManager
+        // Añadir al contador y botones del GameManager
         if (GameManager.Instance != null)
         {
             GameManager.Instance.AddEnemyKill();
+            GameManager.Instance.AddButtons(buttonsGiven);
         }
 
         TryDropHealing();
