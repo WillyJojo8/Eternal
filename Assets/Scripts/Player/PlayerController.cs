@@ -29,16 +29,18 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if(playerStats.isDead) return; // Prevent player movement if dead
+        if (playerStats.isDead) return;
+
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
         movement = movement.normalized;
 
         UpdateSpriteDirection();
 
+        // Fire input
         fireTimer -= Time.deltaTime;
 
-        if (Input.GetKey(KeyCode.Space) && fireTimer <= 0f)
+        if (fireTimer <= 0f)
         {
             FireBullet();
             fireTimer = fireCooldown;
@@ -47,9 +49,16 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        if(playerStats.isDead) return; // Prevent player movement if dead
+        if (playerStats.isDead) return;
 
-        rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
+        float totalSpeed = moveSpeed;
+
+        if (GameManager.Instance != null)
+        {
+            totalSpeed += GameManager.Instance.GetPlayerSpeedBonus();
+        }
+
+        rb.MovePosition(rb.position + movement * totalSpeed * Time.fixedDeltaTime);
     }
 
     void UpdateSpriteDirection()

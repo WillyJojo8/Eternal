@@ -143,8 +143,8 @@ public class GameManager : MonoBehaviour
 
     public int GetUpgradeCost(int currentLevel)
     {
-        // Coste escalado: 100, 200, 300...
-        return (currentLevel + 1) * 100;
+        // Fórmula: 100 * (2 ^ nivel) - 100
+        return Mathf.RoundToInt(100 * Mathf.Pow(2f, currentLevel)) - 100;
     }
 
     // ========== GUARDADO ==========

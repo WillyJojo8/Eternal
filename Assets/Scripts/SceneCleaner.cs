@@ -7,16 +7,23 @@ public class SceneCleaner : MonoBehaviour
     {
         string currentScene = SceneManager.GetActiveScene().name;
 
+        // Esperar a que GameManager esté listo
+        if (GameManager.Instance == null)
+        {
+            Debug.LogWarning("⚠️ GameManager.Instance no está disponible todavía. Abortando limpieza.");
+            return;
+        }
+
         foreach (GameObject obj in FindObjectsOfType<GameObject>())
         {
             // No destruir el GameManager
             if (obj == GameManager.Instance.gameObject)
                 continue;
 
-            // Si el objeto no pertenece a esta escena, elimínalo
+            // Solo destruir los que no pertenecen a esta escena
             if (!obj.scene.name.Equals(currentScene))
             {
-                Debug.Log($"🧹 Eliminando objeto persistente: {obj.name}");
+                Debug.Log($"🧹 Eliminando persistente no deseado: {obj.name}");
                 Destroy(obj);
             }
         }

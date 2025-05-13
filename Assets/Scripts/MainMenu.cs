@@ -5,13 +5,12 @@ public class MainMenu : MonoBehaviour
 {
     public void PlayGame()
     {
-        SceneManager.LoadScene("GameScene"); // Cambia si tu escena se llama distinto
+        SceneManager.LoadScene("GameScene"); // Cambia a la escena de la Partida
     }
 
     public void OpenAbilities()
     {
-        // En el futuro puedes abrir una escena o panel
-        Debug.Log("Abrir pantalla de habilidades (no implementado)");
+        SceneManager.LoadScene("AbilitiesScene"); // Cambia a la escena de las Habilidades
     }
 
     public void QuitGame()

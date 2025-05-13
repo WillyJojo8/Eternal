@@ -6,6 +6,12 @@ public class Bullet : MonoBehaviour
     public int damage = 10;
     public Vector2 direction;
 
+    void Start()
+    {
+        // Destruir la bala después de 2 segundos automáticamente
+        Destroy(gameObject, 2f);
+    }
+
     void Update()
     {
         transform.Translate(direction.normalized * speed * Time.deltaTime);
