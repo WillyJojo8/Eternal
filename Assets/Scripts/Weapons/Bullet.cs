@@ -8,7 +8,6 @@ public class Bullet : MonoBehaviour
 
     void Start()
     {
-        // Destruir la bala después de 2 segundos automáticamente
         Destroy(gameObject, 2f);
     }
 
@@ -19,15 +18,34 @@ public class Bullet : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
+        Debug.Log("💥 Bala impactó con: " + other.name); // Asegura que entra aquí
+
         if (other.CompareTag("Enemy"))
         {
             EnemyStats enemy = other.GetComponent<EnemyStats>();
             if (enemy != null)
             {
                 enemy.TakeDamage(damage);
+                Debug.Log("💥 Daño base aplicado: " + damage);
+
+                if (PlayerStats.Instance != null)
+                {
+                    if (PlayerStats.Instance.hasFreezingShot)
+                    {
+                        Debug.Log("❄️ Aplicando efecto congelante");
+                        enemy.ApplyFreeze(2f);
+                    }
+
+                    if (PlayerStats.Instance.hasPoisonedShot)
+                    {
+                        Debug.Log("☠️ Aplicando veneno");
+                        enemy.ApplyPoison(5, 2, 1f);
+                    }
+                }
             }
 
-            Destroy(gameObject); // destruye la bala al impactar
+            Destroy(gameObject);
         }
+
     }
 }

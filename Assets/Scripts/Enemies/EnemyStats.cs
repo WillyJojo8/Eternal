@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class EnemyStats : MonoBehaviour
 {
@@ -7,10 +8,15 @@ public class EnemyStats : MonoBehaviour
 
     [Header("Curación")]
     public GameObject healingButtonPrefab;
-    [Range(0f, 1f)] public float dropChance = 0.1f; // 10%
+    [Range(0f, 1f)] public float dropChance = 0.1f;
 
     [Header("Progreso")]
-    public int buttonsGiven = 1; // Puntos de habilidad que da este enemigo
+    public int buttonsGiven = 1;
+
+    private bool isFrozen = false;
+
+    [Header("VFX")]
+    public GameObject poisonEffectPrefab;
 
     void Start()
     {
@@ -29,7 +35,6 @@ public class EnemyStats : MonoBehaviour
 
     void Die()
     {
-        // Añadir al contador y botones del GameManager
         if (GameManager.Instance != null)
         {
             GameManager.Instance.AddEnemyKill();
@@ -48,4 +53,64 @@ public class EnemyStats : MonoBehaviour
             Instantiate(healingButtonPrefab, transform.position, Quaternion.identity);
         }
     }
+
+    // ========== CONGELACIÓN ==========
+    public void ApplyFreeze(float duration)
+    {
+        if (isFrozen) return;
+
+        Debug.Log("🧊 Enemigo congelado por " + duration + "s");
+        StartCoroutine(FreezeCoroutine(duration));
+    }
+
+    private IEnumerator FreezeCoroutine(float duration)
+    {
+        isFrozen = true;
+
+        // Desactiva controlador de movimiento
+        var controller = GetComponent<EnemyController>();
+        if (controller != null)
+            controller.enabled = false;
+
+        // Cambiar color visualmente
+        var sr = GetComponent<SpriteRenderer>();
+        if (sr != null)
+            sr.color = Color.cyan;
+
+        yield return new WaitForSeconds(duration);
+
+        // Restaurar movimiento
+        if (controller != null)
+            controller.enabled = true;
+
+        // Restaurar color
+        if (sr != null)
+            sr.color = Color.white;
+
+        isFrozen = false;
+    }
+
+    // ========== VENENO ==========
+    public void ApplyPoison(int damage, int ticks, float interval)
+    {
+        Debug.Log("☣️ Enemigo envenenado: " + ticks + " ticks de " + damage);
+        StartCoroutine(PoisonCoroutine(damage, ticks, interval));
+    }
+
+    private IEnumerator PoisonCoroutine(int damage, int ticks, float interval)
+    {
+        for (int i = 0; i < ticks; i++)
+        {
+            yield return new WaitForSeconds(interval);
+
+            // Efecto visual
+            if (poisonEffectPrefab != null)
+            {
+                Instantiate(poisonEffectPrefab, transform.position, Quaternion.identity);
+            }
+
+            TakeDamage(damage);
+        }
+    }
+
 }

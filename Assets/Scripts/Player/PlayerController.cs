@@ -37,7 +37,8 @@ public class PlayerController : MonoBehaviour
 
         UpdateSpriteDirection();
 
-        // Fire input
+        if (!playerStats.hasSelectedPerk) return;
+
         fireTimer -= Time.deltaTime;
 
         if (fireTimer <= 0f)

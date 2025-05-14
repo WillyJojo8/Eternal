@@ -8,10 +8,10 @@ public class PerkSelectionUI : MonoBehaviour
     public static PerkSelectionUI Instance { get; private set; }
 
     [Header("UI Elements")]
-    public GameObject panel;              // Tu Panel principal
-    public Button[] optionButtons;        // Array con tus botones
+    public GameObject panel;
+    public Button[] optionButtons;
 
-    private List<Perk> currentPerks;      // Perks que se están mostrando
+    private List<Perk> currentPerks;
 
     void Awake()
     {
@@ -21,9 +21,6 @@ public class PerkSelectionUI : MonoBehaviour
         panel.SetActive(false);
     }
 
-    /// <summary>
-    /// Muestra el panel con las opciones de perks.
-    /// </summary>
     public void Show(List<Perk> perks)
     {
         currentPerks = perks;
@@ -36,21 +33,15 @@ public class PerkSelectionUI : MonoBehaviour
             {
                 btn.gameObject.SetActive(true);
 
-                // Icono
                 var img = btn.transform.Find("Icon")?.GetComponent<Image>();
                 if (img != null) img.sprite = perks[i].icon;
 
-                // Texto TMP
                 var txt = btn.GetComponentInChildren<TextMeshProUGUI>();
-                if (txt != null) 
+                if (txt != null)
                     txt.text = perks[i].perkName;
-                else 
+                else
                     Debug.LogWarning($"Button '{btn.name}' no tiene TextMeshProUGUI hijo");
 
-                // Debug
-                Debug.Log($"Perk {perks[i].perkName}");
-
-                // Listener
                 btn.onClick.RemoveAllListeners();
                 int index = i;
                 btn.onClick.AddListener(() => OnOptionSelected(index));
@@ -67,11 +58,11 @@ public class PerkSelectionUI : MonoBehaviour
         var chosen = currentPerks[index];
         chosen.Apply(PlayerStats.Instance.gameObject);
 
+        // ✅ Activar perks
+        PlayerStats.Instance.hasSelectedPerk = true;
+
         panel.SetActive(false);
-
         GameManager.Instance.ConfirmPerkSelected();
-
         PlayerStats.Instance.Respawn();
     }
-
 }

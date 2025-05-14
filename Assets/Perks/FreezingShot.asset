@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b02e0b0ca2a8b341aca3fdb3391e0f4, type: 3}
-  m_Name: MoreHealth
+  m_Script: {fileID: 11500000, guid: 53f778e757fe19c4f8b961dc0ca61c89, type: 3}
+  m_Name: FreezingShot
   m_EditorClassIdentifier: 
-  perkName: MoreHealth
+  perkName: Freeze
   icon: {fileID: 0}
-  description: "Aumenta la vida m\xE1xima"
+  description: Congela al enemigo

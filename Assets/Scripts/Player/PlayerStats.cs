@@ -5,13 +5,18 @@ public class PlayerStats : MonoBehaviour
 {
     public static PlayerStats Instance { get; private set; }
 
-    public int baseHealth = 100;  // Salud base sin mejoras
+    public int baseHealth = 100;
     private int maxHealth;
     private int currentHealth;
 
     public bool isDead { get; private set; }
 
     public HealthBarUI_Image healthBar;
+
+    [Header("Perks")]
+    public bool hasFreezingShot = false;
+    public bool hasPoisonedShot = false;
+    [HideInInspector] public bool hasSelectedPerk = false;
 
     void Awake()
     {
@@ -30,15 +35,14 @@ public class PlayerStats : MonoBehaviour
     {
         GameManager.Instance.ResetGameState();
         isDead = false;
+        hasSelectedPerk = false;
 
-        // Calcular salud total con mejora permanente
         maxHealth = baseHealth + GameManager.Instance.GetPlayerHealthBonus();
         currentHealth = maxHealth;
 
         if (healthBar != null)
             healthBar.SetMaxHealth(maxHealth);
 
-        // Mostrar perks iniciales
         if (PerkManager.Instance != null && PerkSelectionUI.Instance != null)
         {
             var perks = PerkManager.Instance.GetRandomPerks(2);
@@ -78,7 +82,6 @@ public class PlayerStats : MonoBehaviour
     {
         isDead = true;
 
-        // Eliminar todos los enemigos
         foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy"))
         {
             Destroy(enemy);
@@ -86,7 +89,6 @@ public class PlayerStats : MonoBehaviour
 
         Debug.Log("Player died");
 
-        // Detener física
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
         if (rb != null)
         {
@@ -94,18 +96,15 @@ public class PlayerStats : MonoBehaviour
             rb.simulated = false;
         }
 
-        // Desactivar colisión
         Collider2D col = GetComponent<Collider2D>();
         if (col != null)
             col.enabled = false;
 
-        // Redirigir al menú principal después de un pequeño retardo
-        Invoke("ReturnToMainMenu", 2f); // 2 segundos para que se vea que ha muerto
+        Invoke("ReturnToMainMenu", 2f);
     }
 
     void ReturnToMainMenu()
     {
-        // Limpiar objetos sobrantes que no deben pasar al menú
         foreach (GameObject obj in GameObject.FindGameObjectsWithTag("Player"))
             Destroy(obj);
 
@@ -128,7 +127,6 @@ public class PlayerStats : MonoBehaviour
 
         isDead = false;
 
-        // Restaurar salud (aplicando de nuevo mejora si se respawnea en algún otro modo)
         maxHealth = baseHealth + GameManager.Instance.GetPlayerHealthBonus();
         currentHealth = maxHealth;
 

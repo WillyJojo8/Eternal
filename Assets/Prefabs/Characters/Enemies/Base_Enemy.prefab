@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 930983842254814079}
   - component: {fileID: 729171006785049473}
   - component: {fileID: 572653005860936029}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Base_Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -192,3 +192,5 @@ MonoBehaviour:
   maxHealth: 20
   healingButtonPrefab: {fileID: 11363684789510970, guid: 795c8244afc6e514f92e7c092446196e, type: 3}
   dropChance: 0.1
+  buttonsGiven: 1
+  poisonEffectPrefab: {fileID: 3439503197231880227, guid: a6696cc4e6f8df14e81167eae96f874b, type: 3}

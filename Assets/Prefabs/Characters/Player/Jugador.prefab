@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8135528983361967992}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: FirePoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -45,7 +45,7 @@ GameObject:
   - component: {fileID: 7450950828430922690}
   - component: {fileID: 486806624184918154}
   - component: {fileID: 8909141700177671321}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Jugador
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -225,3 +225,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseHealth: 100
   healthBar: {fileID: 0}
+  hasFreezingShot: 0
+  hasPoisonedShot: 0
+  hasSelectedPerk: 0
