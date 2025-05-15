@@ -34,7 +34,7 @@ public class PerkSelectionUI : MonoBehaviour
                 btn.gameObject.SetActive(true);
 
                 var img = btn.transform.Find("Icon")?.GetComponent<Image>();
-                if (img != null) img.sprite = perks[i].icon;
+                img.sprite = perks[i].icon;
 
                 var txt = btn.GetComponentInChildren<TextMeshProUGUI>();
                 if (txt != null)

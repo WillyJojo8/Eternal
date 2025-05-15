@@ -47,3 +47,4 @@ MonoBehaviour:
   allPerks:
   - {fileID: 11400000, guid: 125be182b8513ed4ca1c907f1097d0fc, type: 2}
   - {fileID: 11400000, guid: ec9f7acd40334124db707f9f0e86908f, type: 2}
+  - {fileID: 11400000, guid: ec9f7acd40334124db707f9f0e86908f, type: 2}

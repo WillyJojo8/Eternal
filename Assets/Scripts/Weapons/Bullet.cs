@@ -18,34 +18,41 @@ public class Bullet : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("💥 Bala impactó con: " + other.name); // Asegura que entra aquí
+        if (!other.CompareTag("Enemy")) return;
 
-        if (other.CompareTag("Enemy"))
+        EnemyStats enemy = other.GetComponent<EnemyStats>();
+        if (enemy != null)
         {
-            EnemyStats enemy = other.GetComponent<EnemyStats>();
-            if (enemy != null)
-            {
-                enemy.TakeDamage(damage);
-                Debug.Log("💥 Daño base aplicado: " + damage);
+            enemy.TakeDamage(damage);
 
-                if (PlayerStats.Instance != null)
-                {
-                    if (PlayerStats.Instance.hasFreezingShot)
-                    {
-                        Debug.Log("❄️ Aplicando efecto congelante");
-                        enemy.ApplyFreeze(2f);
-                    }
+            // Freeze y Poison ya funcionan igual que antes…
+            if (PlayerStats.Instance.hasFreezingShot)
+                enemy.ApplyFreeze(2f);
 
-                    if (PlayerStats.Instance.hasPoisonedShot)
-                    {
-                        Debug.Log("☠️ Aplicando veneno");
-                        enemy.ApplyPoison(5, 2, 1f);
-                    }
-                }
-            }
+            if (PlayerStats.Instance.hasPoisonedShot)
+                enemy.ApplyPoison(5, 2, 1f);
 
-            Destroy(gameObject);
+            // Explosive Shot:
+            if (PlayerStats.Instance.hasExplosiveShot)
+                Explode();
         }
 
+        Destroy(gameObject);
+    }
+
+    void Explode()
+    {
+        // Obtenemos el perk que guardamos en Current
+        var perk = ExplosiveShotPerk.Current;
+        if (perk == null) return;  // por si acaso
+
+        // Instanciamos el prefab y le pasamos los valores
+        GameObject expGO = Instantiate(perk.explosionPrefab,
+                                       transform.position,
+                                       Quaternion.identity);
+        var eScript = expGO.GetComponent<Explosion>();
+        if (eScript != null)
+            eScript.Init(perk.explosionRadius,
+                         perk.explosionDamage);
     }
 }

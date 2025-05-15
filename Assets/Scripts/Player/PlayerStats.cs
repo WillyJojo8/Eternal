@@ -16,6 +16,7 @@ public class PlayerStats : MonoBehaviour
     [Header("Perks")]
     public bool hasFreezingShot = false;
     public bool hasPoisonedShot = false;
+    public bool hasExplosiveShot = false;
     [HideInInspector] public bool hasSelectedPerk = false;
 
     void Awake()

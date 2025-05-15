@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: PoisonedShot
   m_EditorClassIdentifier: 
   perkName: Poison
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: e3c87f9bd4b4d07458d04b52bd57b361, type: 3}
   description: Envenena al enemigo
