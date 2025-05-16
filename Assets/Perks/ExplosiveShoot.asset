@@ -17,4 +17,4 @@ MonoBehaviour:
   description: Explosive Shoot
   explosionPrefab: {fileID: 8240190256079137730, guid: ff225b75542e53349a2b9fc412971aaa, type: 3}
   explosionRadius: 2
-  explosionDamage: 30
+  explosionDamage: 5

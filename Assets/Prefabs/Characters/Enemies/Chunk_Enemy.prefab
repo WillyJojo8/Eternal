@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 729171006785049473}
   - component: {fileID: 572653005860936029}
   m_Layer: 11
-  m_Name: Base_Enemy
+  m_Name: Chunk_Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32,7 +32,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -5.8707, y: -0.5593, z: 0}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -79,7 +79,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 673fe2cf9f0364f47b21274a7321c673, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.8773585, g: 0.42994705, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -163,7 +163,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a293b73eba9df894d8d8db7f4a6e1820, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 2
+  speed: 1
 --- !u!114 &729171006785049473
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -176,7 +176,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12aaf65c708039a458e8697fff1c2627, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 10
+  damage: 20
   damageInterval: 0.1
 --- !u!114 &572653005860936029
 MonoBehaviour:
@@ -190,10 +190,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22f492f6247d2b74480f9cb0d91edef2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 20
-  defaultEnemy: 1
+  maxHealth: 40
+  defaultEnemy: 0
   healingButtonPrefab: {fileID: 11363684789510970, guid: 795c8244afc6e514f92e7c092446196e, type: 3}
   dropChance: 0.1
-  defaultEnemyPrefab: {fileID: 0}
+  defaultEnemyPrefab: {fileID: 7111248264965929176, guid: dc08b8f0b99ea7e43814a90481a10f11, type: 3}
   buttonsGiven: 1
   poisonEffectPrefab: {fileID: 3439503197231880227, guid: a6696cc4e6f8df14e81167eae96f874b, type: 3}

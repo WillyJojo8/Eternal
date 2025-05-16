@@ -5,6 +5,9 @@ public class Bullet : MonoBehaviour
     public float speed = 10f;
     public int damage = 10;
     public Vector2 direction;
+    
+    [HideInInspector]
+    public int pierceCount = 0;
 
     void Start()
     {
@@ -13,7 +16,9 @@ public class Bullet : MonoBehaviour
 
     void Update()
     {
-        transform.Translate(direction.normalized * speed * Time.deltaTime);
+    
+        transform.position += (Vector3)(direction * speed * Time.deltaTime);
+
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -35,6 +40,13 @@ public class Bullet : MonoBehaviour
             // Explosive Shot:
             if (PlayerStats.Instance.hasExplosiveShot)
                 Explode();
+            
+            if (PlayerStats.Instance.hasPiercingShot && pierceCount > 0)
+            {
+                pierceCount--;
+                return;
+            }
+            
         }
 
         Destroy(gameObject);

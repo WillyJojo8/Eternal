@@ -2,9 +2,15 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    public GameObject enemyPrefab;
-    public float spawnInterval = 2f;
+    [Header("Prefabs")]
+    public GameObject defaultEnemyPrefab;
+    public GameObject chunkEnemyPrefab;
+
+    [Header("Spawn Settings")]
+    public float spawnInterval = 0.5f;
     public float spawnDistance = 10f;
+    [Range(0f,1f)] public float chunkSpawnChance = 0.1f; // 10% de probabilidad
+
     public Transform player;
 
     private float timer;
@@ -12,7 +18,6 @@ public class EnemySpawner : MonoBehaviour
     void Update()
     {
         if (!GameManager.Instance.HasSelectedPerk) return;
-
         if (player == null || PlayerStats.Instance == null || PlayerStats.Instance.isDead) return;
 
         timer += Time.deltaTime;
@@ -28,6 +33,10 @@ public class EnemySpawner : MonoBehaviour
         Vector2 spawnDir = Random.insideUnitCircle.normalized;
         Vector2 spawnPos = (Vector2)player.position + spawnDir * spawnDistance;
 
-        Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
+        GameObject toSpawn = (Random.value <= chunkSpawnChance && chunkEnemyPrefab != null)
+                                ? chunkEnemyPrefab
+                                : defaultEnemyPrefab;
+
+        Instantiate(toSpawn, spawnPos, Quaternion.identity);
     }
 }

@@ -6,9 +6,14 @@ public class EnemyStats : MonoBehaviour
     public int maxHealth = 20;
     private int currentHealth;
 
+    public bool defaultEnemy;
+
     [Header("Curación")]
     public GameObject healingButtonPrefab;
     [Range(0f, 1f)] public float dropChance = 0.1f;
+
+    [Header("Default enemy")]
+    public GameObject defaultEnemyPrefab;
 
     [Header("Progreso")]
     public int buttonsGiven = 1;
@@ -42,6 +47,21 @@ public class EnemyStats : MonoBehaviour
         }
 
         TryDropHealing();
+
+        if (!defaultEnemy && defaultEnemyPrefab != null)
+        {
+            float offset = 1.5f;
+
+            Vector3 basePos = transform.position;
+            Quaternion rot = transform.rotation;
+
+            Vector3 posLeft  = basePos + Vector3.left  * offset;
+            Vector3 posRight = basePos + Vector3.right * offset;
+
+            Instantiate(defaultEnemyPrefab, posLeft,  rot);
+            Instantiate(defaultEnemyPrefab, posRight, rot);
+        }
+        
         Destroy(gameObject);
     }
 

@@ -11,6 +11,8 @@ public class PlayerController : MonoBehaviour
     public GameObject bulletPrefab;
     public Transform firePoint;
     public float fireCooldown = 0.3f;
+    public float spreadFireCooldown = 1.0f;  
+
 
     private float fireTimer;
     private Rigidbody2D rb;
@@ -35,6 +37,9 @@ public class PlayerController : MonoBehaviour
         movement.y = Input.GetAxisRaw("Vertical");
         movement = movement.normalized;
 
+        if (movement != Vector2.zero)
+            lastLookDirection = movement;
+
         UpdateSpriteDirection();
 
         if (!playerStats.hasSelectedPerk) return;
@@ -44,7 +49,9 @@ public class PlayerController : MonoBehaviour
         if (fireTimer <= 0f)
         {
             FireBullet();
-            fireTimer = fireCooldown;
+            fireTimer = playerStats.hasSpreadShot 
+            ? spreadFireCooldown 
+            : fireCooldown;
         }
     }
 
@@ -63,31 +70,75 @@ public class PlayerController : MonoBehaviour
     }
 
     void UpdateSpriteDirection()
+{
+    // Si te mueves horizontal (o diagonal), siempre prioridad al spriteSide
+    if (movement.x != 0f)
     {
-        if (movement.x != 0)
-        {
-            spriteRenderer.sprite = spriteSide;
-            spriteRenderer.flipX = movement.x > 0;
-            lastLookDirection = movement.x > 0 ? Vector2.right : Vector2.left;
-        }
-        else if (movement.y > 0)
-        {
-            spriteRenderer.sprite = spriteUp;
-            spriteRenderer.flipX = false;
-            lastLookDirection = Vector2.up;
-        }
-        else if (movement.y < 0)
-        {
-            spriteRenderer.sprite = spriteDown;
-            spriteRenderer.flipX = false;
-            lastLookDirection = Vector2.down;
-        }
+        spriteRenderer.sprite = spriteSide;
+        spriteRenderer.flipX = movement.x > 0f;
     }
+    // Sólo si no hay componente X, miramos Y
+    else if (movement.y > 0f)
+    {
+        spriteRenderer.sprite = spriteUp;
+        spriteRenderer.flipX = false;
+    }
+    else if (movement.y < 0f)
+    {
+        spriteRenderer.sprite = spriteDown;
+        spriteRenderer.flipX = false;
+    }
+}
+
 
     void FireBullet()
     {
+
+        if (playerStats.hasSpreadShot)
+    {
+        var perk = SpreadShotPerk.Current;
+        if (perk != null && perk.pelletCount > 1)
+        {
+            // Calculamos el ángulo inicial y paso
+            float half = perk.angleSpread / 2f;
+            float step = perk.pelletCount > 1
+                ? perk.angleSpread / (perk.pelletCount - 1)
+                : 0f;
+
+            for (int i = 0; i < perk.pelletCount; i++)
+            {
+                // Ángulo relativo respecto a la última dirección
+                float angle = -half + step * i;
+                // Rotamos la dirección base
+                Vector2 dir = Quaternion.Euler(0, 0, angle) * lastLookDirection;
+
+                // Instanciamos y configuramos la bala
+                GameObject pellet = Instantiate(
+                    bulletPrefab,
+                    firePoint.position,
+                    Quaternion.Euler(0, 0, Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg)
+                );
+                Bullet bs = pellet.GetComponent<Bullet>();
+                bs.direction = dir;
+
+                // Copiar otros perks si quieres:
+                if (playerStats.hasPiercingShot)
+                    bs.pierceCount = PiercingShotPerk.Current?.pierceCount ?? 0;
+            }
+            return;
+        }
+    }
+
         GameObject bullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity);
         Bullet bulletScript = bullet.GetComponent<Bullet>();
         bulletScript.direction = lastLookDirection;
+
+
+        if (playerStats.hasPiercingShot)
+        {
+            var perk = PiercingShotPerk.Current;  
+            if (perk != null)
+                bulletScript.pierceCount = perk.pierceCount;
+        }
     }
 }
