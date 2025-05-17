@@ -3,25 +3,33 @@ using System.Collections;
 
 public class EnemyStats : MonoBehaviour
 {
+    [Header("Stats")]
     public int maxHealth = 20;
     private int currentHealth;
 
+    [Header("Default Enemy Spawn")]
     public bool defaultEnemy;
-
-    [Header("Curación")]
-    public GameObject healingButtonPrefab;
-    [Range(0f, 1f)] public float dropChance = 0.1f;
-
-    [Header("Default enemy")]
     public GameObject defaultEnemyPrefab;
 
-    [Header("Progreso")]
+    [Header("Drops")]
+    public GameObject healingButtonPrefab;
+    [Range(0f, 1f)] public float dropChance = 0.1f;
     public int buttonsGiven = 1;
-
-    private bool isFrozen = false;
 
     [Header("VFX")]
     public GameObject poisonEffectPrefab;
+
+    // Congelación
+    private bool isFrozen = false;
+    private SpriteRenderer sr;
+    private Color originalColor;
+
+    void Awake()
+    {
+        sr = GetComponent<SpriteRenderer>();
+        if (sr != null)
+            originalColor = sr.color;
+    }
 
     void Start()
     {
@@ -31,15 +39,13 @@ public class EnemyStats : MonoBehaviour
     public void TakeDamage(int amount)
     {
         currentHealth -= amount;
-
         if (currentHealth <= 0)
-        {
             Die();
-        }
     }
 
     void Die()
     {
+        // Notificar al GameManager
         if (GameManager.Instance != null)
         {
             GameManager.Instance.AddEnemyKill();
@@ -48,10 +54,10 @@ public class EnemyStats : MonoBehaviour
 
         TryDropHealing();
 
+        // Si no es ya un defaultEnemy, lo reemplazamos por dos
         if (!defaultEnemy && defaultEnemyPrefab != null)
         {
             float offset = 1.5f;
-
             Vector3 basePos = transform.position;
             Quaternion rot = transform.rotation;
 
@@ -61,24 +67,20 @@ public class EnemyStats : MonoBehaviour
             Instantiate(defaultEnemyPrefab, posLeft,  rot);
             Instantiate(defaultEnemyPrefab, posRight, rot);
         }
-        
+
         Destroy(gameObject);
     }
 
     void TryDropHealing()
     {
-        float chance = Random.Range(0f, 1f);
-        if (chance <= dropChance)
-        {
+        if (Random.value <= dropChance && healingButtonPrefab != null)
             Instantiate(healingButtonPrefab, transform.position, Quaternion.identity);
-        }
     }
 
     // ========== CONGELACIÓN ==========
     public void ApplyFreeze(float duration)
     {
         if (isFrozen) return;
-
         Debug.Log("🧊 Enemigo congelado por " + duration + "s");
         StartCoroutine(FreezeCoroutine(duration));
     }
@@ -87,15 +89,14 @@ public class EnemyStats : MonoBehaviour
     {
         isFrozen = true;
 
-        // Desactiva controlador de movimiento
+        // Detener movimiento
         var controller = GetComponent<EnemyController>();
         if (controller != null)
             controller.enabled = false;
 
-        // Cambiar color visualmente
-        var sr = GetComponent<SpriteRenderer>();
+        // Aplicar color de congelación (azul frío)
         if (sr != null)
-            sr.color = Color.cyan;
+            sr.color = new Color(0.4f, 0.6f, 1f, 1f);
 
         yield return new WaitForSeconds(duration);
 
@@ -103,9 +104,9 @@ public class EnemyStats : MonoBehaviour
         if (controller != null)
             controller.enabled = true;
 
-        // Restaurar color
+        // Restaurar color original
         if (sr != null)
-            sr.color = Color.white;
+            sr.color = originalColor;
 
         isFrozen = false;
     }
@@ -125,12 +126,9 @@ public class EnemyStats : MonoBehaviour
 
             // Efecto visual
             if (poisonEffectPrefab != null)
-            {
                 Instantiate(poisonEffectPrefab, transform.position, Quaternion.identity);
-            }
 
             TakeDamage(damage);
         }
     }
-
 }
