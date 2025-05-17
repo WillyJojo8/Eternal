@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
     public float fireCooldown = 0.3f;
     public float spreadFireCooldown = 1.0f;  
 
-
+    public Animator animator;
     private float fireTimer;
     private Rigidbody2D rb;
     private Vector2 movement;
@@ -41,6 +41,7 @@ public class PlayerController : MonoBehaviour
             lastLookDirection = movement;
 
         UpdateSpriteDirection();
+
 
         if (!playerStats.hasSelectedPerk) return;
 
@@ -71,24 +72,33 @@ public class PlayerController : MonoBehaviour
 
     void UpdateSpriteDirection()
 {
-    // Si te mueves horizontal (o diagonal), siempre prioridad al spriteSide
-    if (movement.x != 0f)
+    // Actualizar los parámetros del Animator
+    animator.SetFloat("MoveX", movement.x);
+    animator.SetFloat("MoveY", movement.y);
+
+    // Control de sprites visuales (no afecta Animator directamente)
+    if (movement.x > 0.1f)
     {
         spriteRenderer.sprite = spriteSide;
-        spriteRenderer.flipX = movement.x > 0f;
+        spriteRenderer.flipX = true;
     }
-    // Sólo si no hay componente X, miramos Y
-    else if (movement.y > 0f)
+    else if (movement.x < -0.1f)
+    {
+        spriteRenderer.sprite = spriteSide;
+        spriteRenderer.flipX = false;
+    }
+    else if (movement.y > 0.1f)
     {
         spriteRenderer.sprite = spriteUp;
         spriteRenderer.flipX = false;
     }
-    else if (movement.y < 0f)
+    else if (movement.y < -0.1f)
     {
         spriteRenderer.sprite = spriteDown;
         spriteRenderer.flipX = false;
     }
 }
+
 
 
     void FireBullet()
