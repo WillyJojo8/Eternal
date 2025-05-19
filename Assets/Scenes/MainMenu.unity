@@ -839,6 +839,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8584839146405134867, guid: 04e8a6e85a418154a80b6e1f141474de, type: 3}
+      propertyPath: m_text
+      value: Continuar Partida
+      objectReference: {fileID: 0}
     - target: {fileID: 8700507251544912312, guid: 04e8a6e85a418154a80b6e1f141474de, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
