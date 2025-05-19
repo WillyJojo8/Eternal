@@ -104,6 +104,9 @@ public class PlayerStats : MonoBehaviour
         if (col != null)
             col.enabled = false;
 
+        // 👉 AÑADE ESTA LÍNEA
+        GameManager.Instance.GuardarBotonesAlMorir();
+
         Invoke("ReturnToMainMenu", 2f);
     }
 

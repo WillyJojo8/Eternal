@@ -15,12 +15,12 @@ public class GameManager : MonoBehaviour
     [Header("Progreso / Botones")]
     public TextMeshProUGUI buttonCountText;
     private int totalButtons = 0;
+    private int botonesTemporales = 0;
 
     // Propiedades públicas
     public int TotalButtons => totalButtons;
     public int SpeedLevel => PlayerPrefs.GetInt("SpeedLevel", 0);
     public int HealthLevel => PlayerPrefs.GetInt("HealthLevel", 0);
-
 
     void Awake()
     {
@@ -72,6 +72,7 @@ public class GameManager : MonoBehaviour
     {
         HasSelectedPerk = false;
         enemyCount = 0;
+        botonesTemporales = 0;
         UpdateEnemyCountUI();
         UpdateButtonUI();
     }
@@ -94,8 +95,7 @@ public class GameManager : MonoBehaviour
     // ========== BOTONES ==========
     public void AddButtons(int amount)
     {
-        totalButtons += amount;
-        SaveProgress();
+        botonesTemporales += amount;
         UpdateButtonUI();
     }
 
@@ -107,11 +107,26 @@ public class GameManager : MonoBehaviour
         UpdateButtonUI();
     }
 
+    public void GuardarBotonesAlMorir()
+    {
+        totalButtons += botonesTemporales;
+        botonesTemporales = 0;
+        SaveProgress();
+        UpdateButtonUI();
+    }
+
+    public void CancelarBotonesDePartida()
+    {
+        botonesTemporales = 0;
+        UpdateButtonUI();
+    }
+
     private void UpdateButtonUI()
     {
         if (buttonCountText != null)
         {
-            buttonCountText.text = "Botones: " + totalButtons;
+            int totalMostrado = totalButtons + botonesTemporales;
+            buttonCountText.text = "Botones: " + totalMostrado;
         }
     }
 
@@ -157,6 +172,7 @@ public class GameManager : MonoBehaviour
     private void LoadProgress()
     {
         totalButtons = PlayerPrefs.GetInt("TotalButtons", 0);
+        botonesTemporales = 0;
         UpdateButtonUI();
     }
 
@@ -167,5 +183,4 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.Save();
         Debug.Log("🎯 Progreso reseteado correctamente.");
     }
-
 }
