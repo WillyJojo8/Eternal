@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
 
     public bool HasSelectedPerk { get; private set; } = false;
 
-    [Header("Enemy Count")]
+    [Header("Contador de enemigos")]
     public TextMeshProUGUI enemyCountText;
     private int enemyCount = 0;
 
@@ -88,7 +88,7 @@ public class GameManager : MonoBehaviour
     {
         if (enemyCountText != null)
         {
-            enemyCountText.text = "Enemy count: " + enemyCount;
+            enemyCountText.text = "Contador de enemigos: " + enemyCount;
         }
     }
 
