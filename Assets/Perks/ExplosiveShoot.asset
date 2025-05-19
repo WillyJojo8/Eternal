@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe287a5a5578b9645b6e4afddca7eff5, type: 3}
   m_Name: ExplosiveShoot
   m_EditorClassIdentifier: 
-  perkName: Explosive
+  perkName: Balas Explosivas
   icon: {fileID: 21300000, guid: 41162c07d44595b49bc2d7525690872c, type: 3}
   description: Explosive Shoot
   explosionPrefab: {fileID: 8240190256079137730, guid: ff225b75542e53349a2b9fc412971aaa, type: 3}

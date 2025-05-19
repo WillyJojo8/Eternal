@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f727735e07525ca419ada9cafcb5551e, type: 3}
   m_Name: SpreadShot
   m_EditorClassIdentifier: 
-  perkName: Spread
+  perkName: Disparo Multiple
   icon: {fileID: 21300000, guid: feabd790a8b3e504ea118cc4028a685b, type: 3}
-  description: Spread Shot
+  description: Disparo Multiple
   pelletCount: 5
   angleSpread: 45

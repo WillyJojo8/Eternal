@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d89bccad5f5e33145a27c09706625c25, type: 3}
   m_Name: PoisonedShot
   m_EditorClassIdentifier: 
-  perkName: Poison
+  perkName: Balas Venenosas
   icon: {fileID: 21300000, guid: e3c87f9bd4b4d07458d04b52bd57b361, type: 3}
   description: Envenena al enemigo

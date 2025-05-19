@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a16170b8d384ca7428bf7008262f5f7e, type: 3}
   m_Name: PiercingShot
   m_EditorClassIdentifier: 
-  perkName: Piercing
+  perkName: Balas Perforantes
   icon: {fileID: 21300000, guid: 3f3290c6a6ee62542ae1b91fbcf7600b, type: 3}
   description: Piercing Shoot
   pierceCount: 1

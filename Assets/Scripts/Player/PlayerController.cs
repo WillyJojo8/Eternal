@@ -6,7 +6,8 @@ public class PlayerController : MonoBehaviour
 
     public Sprite spriteUp;
     public Sprite spriteDown;
-    public Sprite spriteSide;
+    public Sprite spriteLeft;
+    public Sprite spriteRight;
 
     public GameObject bulletPrefab;
     public Transform firePoint;
@@ -79,23 +80,19 @@ public class PlayerController : MonoBehaviour
     // Control de sprites visuales (no afecta Animator directamente)
     if (movement.x > 0.1f)
     {
-        spriteRenderer.sprite = spriteSide;
-        spriteRenderer.flipX = true;
+        spriteRenderer.sprite = spriteRight;
     }
     else if (movement.x < -0.1f)
     {
-        spriteRenderer.sprite = spriteSide;
-        spriteRenderer.flipX = false;
+        spriteRenderer.sprite = spriteLeft;
     }
     else if (movement.y > 0.1f)
     {
         spriteRenderer.sprite = spriteUp;
-        spriteRenderer.flipX = false;
     }
     else if (movement.y < -0.1f)
     {
         spriteRenderer.sprite = spriteDown;
-        spriteRenderer.flipX = false;
     }
 }
 
