@@ -177,7 +177,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 20
-  damageInterval: 0.1
+  damageInterval: 1
 --- !u!114 &572653005860936029
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -192,8 +192,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 40
   defaultEnemy: 0
+  defaultEnemyPrefab: {fileID: 7111248264965929176, guid: dc08b8f0b99ea7e43814a90481a10f11, type: 3}
   healingButtonPrefab: {fileID: 11363684789510970, guid: 795c8244afc6e514f92e7c092446196e, type: 3}
   dropChance: 0.1
-  defaultEnemyPrefab: {fileID: 7111248264965929176, guid: dc08b8f0b99ea7e43814a90481a10f11, type: 3}
   buttonsGiven: 1
   poisonEffectPrefab: {fileID: 3439503197231880227, guid: a6696cc4e6f8df14e81167eae96f874b, type: 3}
