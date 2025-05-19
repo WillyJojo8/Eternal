@@ -1083,7 +1083,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defaultEnemyPrefab: {fileID: 7111248264965929176, guid: dc08b8f0b99ea7e43814a90481a10f11, type: 3}
   chunkEnemyPrefab: {fileID: 7111248264965929176, guid: 18e36776e4aaf2c4bbd3bd64bcce7374, type: 3}
-  spawnInterval: 0.5
+  spawnInterval: 1
   spawnDistance: 10
   chunkSpawnChance: 0.1
   player: {fileID: 17168408}
