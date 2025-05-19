@@ -314,13 +314,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2107552455}
     - target: {fileID: 19745200675839743, guid: fb5297a9884b32e49a8cb1d9a9893dea, type: 3}
+      propertyPath: spriteUp
+      value: 
+      objectReference: {fileID: 1641293543, guid: 5cc675b947ad91540bb7bfd05a63e9df, type: 3}
+    - target: {fileID: 19745200675839743, guid: fb5297a9884b32e49a8cb1d9a9893dea, type: 3}
       propertyPath: spriteLeft
       value: 
-      objectReference: {fileID: -905441315, guid: 874044b4450a0f84a80f0593834f4b2f, type: 3}
+      objectReference: {fileID: 1551938427, guid: 5cc675b947ad91540bb7bfd05a63e9df, type: 3}
     - target: {fileID: 19745200675839743, guid: fb5297a9884b32e49a8cb1d9a9893dea, type: 3}
       propertyPath: spriteRight
       value: 
-      objectReference: {fileID: -1300806228, guid: b4ad408c5daf9c747817790725896b7f, type: 3}
+      objectReference: {fileID: 951156625, guid: b4ad408c5daf9c747817790725896b7f, type: 3}
     - target: {fileID: 63056575506998123, guid: fb5297a9884b32e49a8cb1d9a9893dea, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.06
